@@ -42,7 +42,7 @@ class BatchService:
         return BatchUploadResponse(
             batch_id=batch_id,
             total_hospitals=len(parsed_rows),
-            message=f"CSV upload initiated. Use batch_id to track progress.",
+            message=f"CSV upload initiated. Use /[batch_id]/status to track progress.",
             status=BatchProcessingStatus.PENDING
         )
     

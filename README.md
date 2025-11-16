@@ -7,7 +7,7 @@ A FastAPI-based system for bulk hospital processing with CSV upload, asynchronou
 ## **Features**
 
 * Asynchronous CSV upload with instant `batch_id`
-* Parallel processing (up to 20 concurrent tasks)
+* Parallel processing
 * Real-time progress polling
 * Batch activation & status lifecycle
 * In-memory batch tracking
@@ -31,7 +31,7 @@ A FastAPI-based system for bulk hospital processing with CSV upload, asynchronou
 **Build & run:**
 
 ```sh
-docker-compose up --build
+docker-compose build
 ```
 
 **Detached mode:**
@@ -193,40 +193,6 @@ curl "http://localhost:8000/batch/{batch_id}/status"
 
 ---
 
-## **Docker Commands**
-
-**Build:**
-
-```sh
-docker-compose build
-```
-
-**Start:**
-
-```sh
-docker-compose up
-```
-
-**Background:**
-
-```sh
-docker-compose up -d
-```
-
-**Logs:**
-
-```sh
-docker-compose logs -f
-```
-
-**Remove containers & volumes:**
-
-```sh
-docker-compose down -v
-```
-
----
-
 ## **Environment Variables**
 
 `.env`:
@@ -302,61 +268,3 @@ Example validation response:
     }
   ]
 }
-```
-
----
-
-## **Development**
-
-Activate environment:
-
-```sh
-source venv/bin/activate
-```
-
-Run with auto-reload:
-
-```sh
-uvicorn app.main:app --reload
-```
-
-Format code:
-
-```sh
-black app/
-```
-
-Lint:
-
-```sh
-flake8 app/
-```
-
----
-
-## **Troubleshooting**
-
-**Port already in use:**
-Modify port mapping in `docker-compose.yml`:
-
-```
-8001:8000
-```
-
-**Check logs:**
-
-```sh
-docker-compose logs
-```
-
-**CSV errors:**
-
-* Ensure headers match exactly
-* Ensure `name` and `address` are not empty
-* Use UTF-8 encoded CSV
-
----
-
-## **License**
-
-MIT License
