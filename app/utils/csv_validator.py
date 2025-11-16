@@ -35,8 +35,7 @@ class CSVValidator:
                 "type": "file_size_error"
             })
             raise CSVValidationException(errors)
-        
-        # Parse CSV
+
         csv_reader = csv.DictReader(io.StringIO(decoded_content))
         
         # Validate headers
