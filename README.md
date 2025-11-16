@@ -2,7 +2,7 @@
 
 A FastAPI-based system for bulk hospital processing with CSV upload, asynchronous background execution, and real-time progress tracking.
 
-#### PLEASE NOTE: All the below apis for this service are available at: https://hospital-batch-processor.onrender.com/
+#### PLEASE NOTE: All the below apis for this service are available at: [https://hospital-batch-processor.onrender.com/](https://hospital-batch-processor.onrender.com/docs#/)
 ---
 
 ## **Features**
@@ -142,6 +142,65 @@ Community Hospital,789 Pine Road,
 * `phone`: optional
 
 ---
+
+### 1.1: Validate CSV (Optional but Recommended)
+
+Before uploading, validate your CSV file to catch errors early:
+
+```bash
+curl -X POST "http://localhost:8000/batch/validate-csv" \
+-H "accept: application/json" \
+-H "Content-Type: multipart/form-data" \
+-F "file=@hospitals.csv"
+````
+
+**Success Response (200):**
+
+```json
+{
+  "valid": true,
+  "message": "CSV file is valid and ready for processing",
+  "total_rows": 25,
+  "headers": ["name", "address", "phone"]
+}
+```
+
+**Error Response (422) – Invalid Headers:**
+
+```json
+{
+  "valid": false,
+  "message": "CSV validation failed",
+  "errors": [
+    {
+      "loc": ["file", "headers"],
+      "msg": "CSV headers must be exactly: name,address,phone (case-sensitive)",
+      "type": "invalid_headers"
+    }
+  ]
+}
+```
+
+**Error Response (422) – Missing Required Fields:**
+
+```json
+{
+  "valid": false,
+  "message": "CSV validation failed",
+  "errors": [
+    {
+      "loc": ["row", 3, "name"],
+      "msg": "name is required and must be at least 1 character",
+      "type": "value_error"
+    },
+    {
+      "loc": ["row", 5, "address"],
+      "msg": "address is required and must be at least 1 character",
+      "type": "value_error"
+    }
+  ]
+}
+```
 
 ### **2. Upload CSV**
 
