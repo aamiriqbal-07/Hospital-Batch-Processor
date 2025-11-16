@@ -114,3 +114,21 @@ class HealthResponse(BaseModel):
     status: str
     timestamp: datetime
     version: str
+
+class ValidationErrorDetail(BaseModel):
+    loc: List[str | int]
+    msg: str
+    type: str
+
+
+class CSVValidationSuccessResponse(BaseModel):
+    valid: bool = True
+    message: str
+    total_rows: int
+    headers: List[str]
+
+
+class CSVValidationErrorResponse(BaseModel):
+    valid: bool = False
+    message: str
+    errors: List[ValidationErrorDetail]
